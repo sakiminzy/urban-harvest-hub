@@ -1,11 +1,15 @@
 const API = import.meta.env.VITE_API_URL;
+
 const JSON_HEADERS = {
   'Content-Type': 'application/json',
 };
 
 async function request(path, options = {}) {
+  if (!API) {
+    throw new Error('VITE_API_URL is not defined.');
+  }
+
   const response = await fetch(`${API}${path}`, {
-    headers: JSON_HEADERS,
     ...options,
     headers: {
       ...JSON_HEADERS,
